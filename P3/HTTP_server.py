@@ -48,7 +48,7 @@ class MyHttp(http.server.BaseHTTPRequestHandler):
 
 if __name__ == '__main__':
     from http.server import HTTPServer
-    server = HTTPServer(('localhost', port), MyHttp)
+    server = HTTPServer(('0.0.0.0', port), MyHttp)
 
     print('Starting server @port '+str(port)+' , use <Ctrl-C> to stop')
     try:
