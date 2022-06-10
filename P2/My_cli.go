@@ -9,7 +9,7 @@ import (
 
 // docker run [container name] cmd args
 // go run My_cli.go run cmd args
-// sudo go run My_cli.go run /bin/bash
+// sudo go run My_cli.go run /bin/bash host name
 func main() {
 	switch os.Args[1]{
 	case "run":
@@ -17,7 +17,7 @@ func main() {
 	case "child":
 		child()
 	default:
-		panic("what????")
+		panic("what??")
 	}
 }
 
@@ -35,9 +35,9 @@ func run() {
 }
 
 func child() {
-	fmt.Printf("running %v as PID %d\n", os.Args[2:], os.Getpid())
+	fmt.Printf("running %v as PID %d\n", os.Args[3], os.Getpid())
 
-	cmd := exec.Command(os.Args[2],os.Args[3:]...)
+	cmd := exec.Command(os.Args[2]) /////,os.Args[3:]...
 	cmd.Stdin = os.Stdin
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
@@ -46,6 +46,11 @@ func child() {
 	must(syscall.Chroot("/home/rootfs")) 
 	//also set the default directory too
 	must(os.Chdir("/"))
+	//mount /proc 
+	must(syscall.Mount("proc","proc","proc",0,""))
+	var hostname string
+	hostname = os.Args[3]
+	must(syscall.Sethostname([]byte(hostname)))
 	must(cmd.Run())
 }
 
