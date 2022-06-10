@@ -42,8 +42,10 @@ func child() {
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 
-
-
+	//set root file system for container
+	must(syscall.Chroot("/home/rootfs")) 
+	//also set the default directory too
+	must(os.Chdir("/"))
 	must(cmd.Run())
 }
 
