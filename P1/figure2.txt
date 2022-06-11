@@ -1,0 +1,3 @@
+Obviously if we delete the router and links between bridges nodes in different subnets can't ping eachother.
+The reason is that there isn't any link between bridges and you must add routing rules in root namespace for bridges and assign an ip to them, 
+also you need to route packets to the other subnet inside each node namespace.
