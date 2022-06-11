@@ -1,10 +1,13 @@
 If namespaces were on the different servers :
-Again it's so similar to figure2 and you only need to route packets to the real eth that communicates to outside world, just like how docker does.
+Again it's so similar to figure2, despite the fact you need each node a route rule like figure2, you only need to add routeing rules for
+packets to the real eth that communicates to outside world, just like how docker does.
 
-server 172.0.0.0/24 rules :
+(node namespaces have the same rules.)
+
+server 172.0.0.0/24 rules : (send each packet in the correct direction.)
 ip route add 10.10.0.0/24 dev eth1
 ip route add 172.0.0.0/24 dev br1
 
-server 10.10.0.0/24 rules :
+server 10.10.0.0/24 rules : (send each packet in the correct direction.)
 ip route add 172.0.0.0/24 dev eth2
 ip route add 10.10.0.0/24 dev br2
